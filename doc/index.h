@@ -392,6 +392,11 @@ Public License instead of this License.
 //-----------------------------------------------------------
 
 /*! \page build "Optios in build"
-- ./configure\n
-   make
+- mkdir m4\n
+  aclocal -I m4\n
+  autoheader\n
+  autoconf\n
+  automake -a\n
+  ./configure\n
+  make\n
 */
