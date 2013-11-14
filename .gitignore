@@ -1,18 +1,61 @@
-# Object files
-*.o
-*.ko
+#objects
+**/*.o
+**/.deps/
+denishell-0.0.0.tar.gz
+src/deni-sh
 
-# Libraries
-*.lib
-*.a
+#doc directory
+doc/html/
+doc/man/
+doc/latex/
+**/*.html
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
 
-# Executables
-*.exe
-*.out
-*.app
+.dirstamp
+
+
+# http://www.gnu.org/software/automake
+
+**/Makefile.in
+**/Makefile
+Makefile
+Makefile.in
+
+# http://www.gnu.org/software/autoconf
+
+/autom4te.cache
+/aclocal.m4
+/compile
+/configure
+/depcomp
+/install-sh
+/missing
+
+/stamp-h1
+/config.h.in
+/config.guess
+/PNJB.kdev4
+/config.status
+/config.log
+/config.sub
+
+
+
+
+#kdevelop
+/.kdev4
+MY_SHELL.includes
+**/.kdev_include_paths
+**/*.kdev4
+**/*.kate-swp
+
+#QtCReator
+*.creator
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+
+**/*~
+**/.directory

@@ -1,0 +1,28 @@
+===============================
+MY_SHELL is a demo interpreter
+===============================
+
+**Version 0.0.0**
+
+Este es un pequenno demo que muestra el uso de gramaticas LL1 para implementar interpretes.
+
+
+./configure
+make
+
+
+Resources
+---------
+
+1.  `Changelog`_
+2.  `License`_
+3.  `Contributing`_
+4.  `Authors`_
+5.  `Install`_
+
+
+.. _Changelog: ChangeLog
+.. _License: LICENSE
+.. _Contributing: CONTRIBUTING.rst
+.. _Authors: AUTHORS
+.. _Install: INSTALL
