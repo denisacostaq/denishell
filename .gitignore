@@ -4,6 +4,14 @@
 denishell-0.0.0.tar.gz
 src/deni-sh
 
+#intltool
+po/
+!po/ChangeLog
+!po/POTFILES
+!po/POTFILES.in
+!po/POTFILES.skip
+
+
 #doc directory
 doc/html/
 doc/man/
