@@ -1,5 +1,5 @@
 AC_PREREQ(2.69)
-AC_INIT([denishell], [0.0.0], [denisacostaq@gmail.com], [denishell], [https://www.com])
+AC_INIT([denishell], [0.0.0], [denisacostaq@gmail.com], [denishell], [https://github.com/denisacostaq/denishell])
 
 AM_INIT_AUTOMAKE([1.14])
 

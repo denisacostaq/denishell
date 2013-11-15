@@ -79,7 +79,7 @@ typedef struct
 
 char get_next_character (void);
 
-token* get_next_token ();
+token* get_next_token (token *current_tk);
 
 token* get_new_token (token_type id, char* value);
 
@@ -89,8 +89,7 @@ token_type get_type (char *str_tk);
 
 void msg_err (char* msg);
 
-#define TRACE
-#ifdef TRACE
+#ifdef TRACE_TOKENS
 #define PRINT_TOKEN(TK) print_token (TK)
 void print_token (token *tk);
 #else

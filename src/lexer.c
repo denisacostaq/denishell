@@ -41,8 +41,15 @@ char get_next_character (void)
 }
 
 
-token* get_next_token ()
+token* get_next_token (token *current_tk)
 {
+    if (current_tk)
+    {
+        if (current_tk->id == tk_end)
+        {
+            //FIXME: aun persisten problemas de memoria return current_tk;
+        }
+    }
     char current_char = get_next_character();
     while (current_char == ' ' || current_char == '\t')
     {
@@ -68,7 +75,7 @@ token* get_next_token ()
         } while (!isspace(current_char) && !is_separator(current_char));
         tk_str[leng] = 0;
         tk = get_new_token (get_type(tk_str), tk_str);
-    }
+    }    
     return tk;
 }
 
@@ -141,7 +148,7 @@ void msg_err (char* msg)
     printf ("%s\n", _(msg));
 }
 
-#ifdef TRACE
+#ifdef TRACE_TOKENS
 void print_token (token* tk)
 {
     char str_tk[100];

@@ -36,46 +36,44 @@
 #include "sintactic_cat.h"
 #include "sintactic.h"
 
-//TODO: esto no es reponsabilidad de bash pero....
 char **cat_args ()
 {
-    char **arg = (char**)calloc(number_of_args, sizeof(char*));
+    char **cat_arg = (char**)calloc(number_of_args, sizeof(char*));
     int arg_index = 0;
-    arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
-    memset (arg[arg_index], 0, sizeof(*arg[arg_index]));
-    strcat (arg[arg_index], "cat");
-    arg[++arg_index] = NULL;
+    cat_arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
+    memset (cat_arg[arg_index], 0, sizeof(*cat_arg[arg_index]));
+    strcat (cat_arg[arg_index], "cat");
+    cat_arg[++arg_index] = NULL;
 
-    current_token = get_next_token();
+    current_token = get_next_token (current_token);
     if (current_token->family != tk_family_operators &&
         current_token->family != tk_family_finalize)
     {
-        arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
-        memset (arg[arg_index], 0, sizeof(*arg[arg_index]));
-        strcat (arg[arg_index], current_token->tk_value);
-        arg[++arg_index] = NULL;
-        cat_args2 (arg, arg_index);
+        cat_arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
+        memset (cat_arg[arg_index], 0, sizeof(*cat_arg[arg_index]));
+        strcat (cat_arg[arg_index], current_token->tk_value);
+        cat_arg[++arg_index] = NULL;
+        cat_args2 (cat_arg, arg_index);
     }
-    return arg;
+    return cat_arg;
 }
 
-
-char **cat_args2 (char **arg, int arg_index)
+char **cat_args2 (char **cat_arg, int arg_index)
 {
-    current_token = get_next_token();
+    current_token = get_next_token (current_token);
     if (current_token->family != tk_family_operators &&
         current_token->family != tk_family_finalize)
     {
-        arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
-        //memset (arg[1], 0, sizeof(arg[0]));
-        strcat (arg[arg_index], current_token->tk_value);
-        arg[++arg_index] = NULL;
-        current_token = get_next_token();
+        cat_arg[arg_index] = (char*)calloc(leng_for_each_arg, sizeof(char));
+        memset (cat_arg[arg_index], 0, sizeof(*cat_arg[arg_index]));
+        strcat (cat_arg[arg_index], current_token->tk_value);
+        cat_arg[++arg_index] = NULL;
+        current_token = get_next_token (current_token);
         while (current_token->family == tk_family_finalize &&
             current_token->family == tk_family_operators)
         {
-            current_token = get_next_token();
+            current_token = get_next_token (current_token);
         }
     }
-    return arg;
+    return cat_arg;
 }

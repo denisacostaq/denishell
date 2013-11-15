@@ -1,1 +1,10 @@
-ls | grep main
+ls | ls > out.txt
+cat out.txt
+pwd
+cd
+cd /home
+cd /tmp
+ls
+pwd
+cd
+ls -a -l

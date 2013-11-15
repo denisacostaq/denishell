@@ -40,24 +40,30 @@
 #include "sintactic.h"
 
 
-void print_chields_node (struct ast_node *node)
+void print_chields_and_node (struct ast_node *node)
 {
-    PRINT_TOKEN (node->my_content);
+    if (node->my_content)
+    {
+        PRINT_TOKEN (node->my_content);
+    }
     if (node->chield_right)
     {
-        PRINT_TOKEN (node->chield_right->my_content);
+        if (node->chield_right->my_content)
+        {
+            PRINT_TOKEN (node->chield_right->my_content);
+        }
     }
 }
 
 void print_tree (struct ast_node *ast)
-{
+{    
     if (ast)
     {
         if (ast->chield_left)
         {
-            print_tree(ast->chield_left);
+            print_tree (ast->chield_left);
         }
-        print_chields_node (ast);
+        print_chields_and_node (ast);
     }
 }
 
@@ -107,57 +113,24 @@ int main( int argc, char *argv[] )
         printf ("%s", format);
     }
 
-
-
-    /*
-    struct ast_node* chield_left =
-            (struct ast_node*) malloc (sizeof (struct ast_node));
-            chield_left->args = (char**)calloc (100, sizeof(char*));
-            for (int i = 0; i < 100; i++)
-            {
-                chield_left->args[i] = (char*)calloc (100, sizeof(char));
-                memset (chield_left->args[i], 0, sizeof(chield_left->args[i][0]));
-            }
-            strcat (chield_left->args[0], "ls");
-            strcat (chield_left->args[1], "main");
-            strcat (chield_left->args[2], "main.c");
-            chield_left->args[3] = NULL;
-
-    struct ast_node* chield_rigth =
-            (struct ast_node*) malloc (sizeof (struct ast_node));
-            chield_rigth->args = (char**)calloc (100, sizeof(char*));
-            for (int i = 0; i < 100; i++)
-            {
-                chield_rigth->args[i] = (char*)calloc (100, sizeof(char));
-                memset (chield_rigth->args[i], 0, sizeof(chield_rigth->args[i][0]));
-            }
-            strcat (chield_rigth->args[0], "grep");
-            strcat (chield_rigth->args[1], "main");
-
-    run_syncronous_pipe (chield_left, chield_rigth);
-    */
-
     while (TRUE)
     {
-        printf ("promp>");
-        line = (char*)calloc (1000, sizeof(char));
+        printf ("\npromp>");
+        line = (char*)calloc (200, sizeof(char));
         memset (line,  0, sizeof(*line));
         line = fgets (line, 1000, stdin);
         character_index = 0;        
-        struct ast_node *ast =  sentence ();
+        struct ast_node *ast = sentence ();
 
-        printf ("\n\n\n\n\n\n");
-        printf ("print_tree (ast);\n");
-        printf ("*******************************\n");
-        //print_tree (ast);
-        printf ("\n*******************************\n");
-        printf ("\n\n\n\n\n\n");
+        print_tree (ast);
+
         run_on_ast (ast, NULL);
 
-        //FIXME: no libero nada de memoria hacerlo biennnnnnnnnn y contra valgrind
-        //free_tree (ast);
-        //free (line);
+        if (ast)
+        {
+            free_tree (ast);
+        }
+        free (line);
     }
-
     return 0;
 }

@@ -46,39 +46,41 @@
 #include "sintactic_ls.h"
 #include "sintactic.h"
 
-//FIXME:memset (arg[0], 0, sizeof(arg[0]));
-//TODO: esto no suele ser responsabilidad de bash perooo, de hecho revisar que todos los parametros pinchan
 char **ls_args ()
 {
-    char **arg = (char**)calloc(number_of_args, sizeof(char*));
+    char **ls_arg = (char**)calloc(number_of_args, sizeof(char*));
     int arg_count = 0;
-    arg[arg_count] = (char*)calloc(leng_for_each_arg, sizeof(char));
-    strcat (arg[arg_count], "ls");
-    arg[++arg_count] = NULL;
+    ls_arg[arg_count] = (char*)calloc(leng_for_each_arg, sizeof(char));
+    memset (ls_arg[arg_count], 0, sizeof(*ls_arg[arg_count]));
+    strcat (ls_arg[arg_count], "ls");
+    ls_arg[++arg_count] = NULL;
     BOOL remaining = TRUE;
     do
     {
-        current_token = get_next_token();
+        current_token = get_next_token (current_token);
         switch (current_token->id)
         {
         case tk_ls_option_a:
-            arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
-            strcat (arg[arg_count], "-a");
-            arg[++arg_count] = NULL;
+            ls_arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
+            memset (ls_arg[arg_count], 0, sizeof(*ls_arg[arg_count]));
+            strcat (ls_arg[arg_count], "-a");
+            ls_arg[++arg_count] = NULL;
             break;
         case tk_ls_option_f:
-            arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
-            strcat (arg[arg_count], "-f");
-            arg[++arg_count] = NULL;
+            ls_arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
+            memset (ls_arg[arg_count], 0, sizeof(*ls_arg[arg_count]));
+            strcat (ls_arg[arg_count], "-f");
+            ls_arg[++arg_count] = NULL;
             break;
         case tk_ls_option_l:
-            arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
-            strcat (arg[arg_count], "-l");
-            arg[++arg_count] = NULL;
+            ls_arg[arg_count] = (char*) calloc (leng_for_each_arg, sizeof(char));
+            memset (ls_arg[arg_count], 0, sizeof(*ls_arg[arg_count]));
+            strcat (ls_arg[arg_count], "-l");
+            ls_arg[++arg_count] = NULL;
             break;
         default:
             remaining = FALSE;
         }
     }while (remaining);
-    return arg;
+    return ls_arg;
 }

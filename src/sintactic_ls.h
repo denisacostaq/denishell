@@ -49,6 +49,13 @@
 
 #include "lexer.h"
 
+/*! \brief Partucular check.
+ * \brief Cuando le das ordenes a bash este no cheque por la correctitud de los parametros
+ * \brief esto es responsabilidad de cada programa en particular, si asumieramos este
+ * \brief comportamiento se tomarian como correctos todos los parametros que acepte el
+ * \brief programa cuando solo se requieren unos pocos para este demo.
+ * \return char **ls_arg, argumentos a ls.
+ */
 char **ls_args ();
 
 

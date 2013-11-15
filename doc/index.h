@@ -15,10 +15,9 @@ Some general info.
 //-----------------------------------------------------------
 
 /*! \page about "About denishell"
-- website: http://www.embelinux.blogspot.com/direccion
+- website: http://embelinux.blogspot.com/2013/11/implementando-mi-propio-shell-usando.html
 
-
-- <A HREF="https://www.github.com/denisacostaq/elpastedeinicioengithub">denishell review</A>
+- <A HREF="https://github.com/denisacostaq/denishell">denishell review</A>
 */
 
 //-----------------------------------------------------------
@@ -392,11 +391,6 @@ Public License instead of this License.
 //-----------------------------------------------------------
 
 /*! \page build "Optios in build"
-- mkdir m4\n
-  aclocal -I m4\n
-  autoheader\n
-  autoconf\n
-  automake -a\n
-  ./configure\n
-  make\n
+- ./configure\n
+   make
 */

@@ -1,9 +1,11 @@
 CLEANFILES = *~
 
-AM_CFLAGS = -Wall -std=c99 -Werror
+AM_CFLAGS = -Wall -std=c99 -Werror \
+        -DTRACE_TOKENS \
+        -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
 
 #i18n
-AM_CPPFLAGS = -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
+AM_CPPFLAGS =
 
 bin_PROGRAMS = deni-sh
 deni_sh_SOURCES = \

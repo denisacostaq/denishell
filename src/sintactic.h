@@ -48,7 +48,6 @@
 #define SINTATIC_H
 
 #include "glob.h"
-
 #include "runtime.h"
 #include "sintactic_ls.h"
 #include "sintactic_cat.h"
@@ -101,8 +100,6 @@ char **pwd_args ();
  * \return
  */
 struct ast_node *more_instructions(struct ast_node *ast_left);
-
-
 
 /*!
  * \brief create_as_node_with_current_tk

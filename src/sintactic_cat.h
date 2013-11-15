@@ -39,8 +39,15 @@
 
 #include "lexer.h"
 
+/*! \brief Partucular check.
+ * \brief Cuando le das ordenes a bash este no cheque por la correctitud de los parametros
+ * \brief esto es responsabilidad de cada programa en particular, si asumieramos este
+ * \brief comportamiento se tomarian como correctos todos los parametros que acepte el
+ * \brief programa cuando solo se requieren unos pocos para este demo.
+ * \return char **cat_arg, argumentos a cat.
+ */
 char **cat_args ();
 
-char **cat_args2 (char **arg, int arg_index);
+char **cat_args2 (char **cat_arg, int arg_index);
 
 #endif //SINTATIC_CAT_H

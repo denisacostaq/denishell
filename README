@@ -1,15 +1,21 @@
-===============================
 MY_SHELL is a demo interpreter
-===============================
+==============================
 
 **Version 0.0.0**
 
-Este es un pequenno demo que muestra el uso de gramaticas LL1 para implementar interpretes.
+Este es un peque&ntilde;o demo que muestra el uso de gram&aacute;ticas LL1 para implementar
+int&eacute;rpretes.
+En la carpeta doc del proyecto hay documentaci&oacute;n que puedes revisar despu&eacute;s
+de generarla escribiendo make html-doc que construye la documentaci&oacute;n del
+proyecto en su versi&oacute;n latex html y man.
 
 
-./configure
+
+
+Build
+-----
+./configure <br>
 make
-
 
 Resources
 ---------

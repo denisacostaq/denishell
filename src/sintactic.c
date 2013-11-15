@@ -58,14 +58,14 @@
 
 struct ast_node *sentence ()
 {
-    current_token = get_next_token ();
+    current_token = get_next_token (current_token);
     struct ast_node *ast = instruction ();
-    struct ast_node *ast_parent = more_instructions (ast);
-    if (!ast_parent)
+    struct ast_node *ast_parent = more_instructions (ast);    
+    if (ast_parent)
     {
-        ast_parent = ast;
+        return ast_parent;
     }
-    return ast_parent;
+    return ast;
 }
 
 
@@ -79,6 +79,7 @@ struct ast_node * instruction ()
     else if (current_token->family == tk_family_finalize)
     {
         ast = create_as_node_with_current_tk ();
+        current_token = get_next_token (current_token);
     }
     else
     {
@@ -139,12 +140,12 @@ char **cd_args ()
     arg[arg_count] = (char*)calloc(leng_for_each_arg, sizeof(char));
     memset (arg[arg_count], 0, sizeof(*arg[arg_count]));
 
-    current_token = get_next_token();
+    current_token = get_next_token(current_token);
     if (current_token->family != tk_family_finalize &&
             current_token->family != tk_family_operators)
     {
         strcat (arg[arg_count], current_token->tk_value);
-        current_token = get_next_token();
+        current_token = get_next_token (current_token);
         arg[++arg_count] = NULL;
     }
     else
@@ -165,17 +166,17 @@ char** pwd_args ()
     memset (arg[arg_count], 0, sizeof(*arg[0]));
     strcat (arg[arg_count], "pwd");
     arg[++arg_count] = NULL;
-    current_token = get_next_token();
+    current_token = get_next_token (current_token);
     return arg;
 }
 
 struct ast_node *more_instructions (struct ast_node *ast_left)
-{
+{    
     if (current_token->id == tk_operator_pipe)
     {
         struct ast_node *ast = create_as_node_with_current_tk ();
         ast->chield_left = ast_left;
-        current_token = get_next_token ();
+        current_token = get_next_token (current_token);
         if (current_token->family == tk_family_commands)
         {
             ast->chield_right = instruction ();
@@ -186,7 +187,7 @@ struct ast_node *more_instructions (struct ast_node *ast_left)
             if (current_token->id == tk_end)
             {
                 msg_err (_("_Unexpected end, expectect command beafore end\n"));
-                free (ast);
+                free_node (ast);
                 return ast_left;
             }
             char msg[150];
@@ -209,6 +210,7 @@ struct ast_node *more_instructions (struct ast_node *ast_left)
     }
     else if (current_token->id == tk_end)
     {
+        //FIXME: y a current token quien lo elimina
         return ast_left;
     }
     else
@@ -219,16 +221,16 @@ struct ast_node *more_instructions (struct ast_node *ast_left)
         strcat (msg, current_token->tk_value);
         strcat (msg, "\n");
         msg_err (msg);
-/*
-        while (current_token->family != tk_family_operators
-               && current_token->family != tk_family_finalize)
+
+        while (current_token->family != tk_family_operators &&
+                  current_token->id != tk_end)
         {
             free (current_token);
-            current_token = get_next_token ();
-        }*/
-        //return more_instructions (ast_left);
+            current_token = get_next_token (current_token);
+        }
+        return more_instructions (ast_left);
     }
-    return ast_left;
+    return NULL;
 }
 
 struct ast_node* create_as_node_with_current_tk ()
@@ -241,11 +243,14 @@ struct ast_node* create_as_node_with_current_tk ()
     case tk_family_options:
     case tk_family_finalize:
         ast = (struct ast_node*)malloc (sizeof(struct ast_node));
+        ast->args = NULL;
+        ast->chield_left = NULL;
+        ast->chield_right = NULL;
         ast->my_content = current_token;
         break;
     default://TODO:
         printf ("struct ast_node* create_as_node_with_current_tk ()\n");
-        exit (EXIT_SUCCESS);
+        exit (EXIT_FAILURE);
         break;
     }
     return ast;
@@ -254,16 +259,8 @@ struct ast_node* create_as_node_with_current_tk ()
 void bash_panic ()
 {
     fprintf ( stderr, _("my-shell panic\n"));
-    /*if (_args)
-    {
-        int i = 0;
-        while (_args[i])
-        {
-            free (_args[i++]);
-        }
-        free (_args);
-    }*/
-    exit (-1);
+    //FIXME free_tree (ast);
+    exit (EXIT_FAILURE);
 }
 
 
@@ -275,6 +272,6 @@ void rescue_panic_mode()
            && current_token->family != tk_family_finalize)
     {
         free (current_token);
-        current_token = get_next_token ();
+        current_token = get_next_token (current_token);
     }
 }
